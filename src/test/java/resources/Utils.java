@@ -1,10 +1,11 @@
 package resources;
 
-import java.io.FileNotFoundException;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
+import java.util.Properties;
 
-import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
@@ -12,14 +13,24 @@ import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 
 public class Utils {
-	public RequestSpecification requestSpecifications() throws FileNotFoundException {
-		RestAssured.baseURI = "https://rahulshettyacademy.com";
+	public RequestSpecification requestSpecifications() throws IOException {
 		PrintStream log = new PrintStream(new FileOutputStream("logging.txt"));
-		RequestSpecification req = new RequestSpecBuilder().setBaseUri("https://rahulshettyacademy.com")
+		RequestSpecification req = new RequestSpecBuilder().setBaseUri(getGlobalValue("baseURL"))
 				.addQueryParam("key", "qaclick123").addFilter(RequestLoggingFilter.logRequestTo(log))
 				.addFilter(ResponseLoggingFilter.logResponseTo(log)).setContentType(ContentType.JSON).build();
 
 		return req;
 
 	}
+
+	public String getGlobalValue(String key) throws IOException {
+		Properties properties = new Properties();
+		FileInputStream fis = new FileInputStream(
+				System.getProperty("user.dir") + "\\src\\test\\java\\resources\\global.properties");
+		properties.load(fis);
+		System.out.println(properties.getProperty(key));
+		return properties.getProperty(key);
+
+	}
+
 }
