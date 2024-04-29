@@ -4,7 +4,7 @@ Feature: Validating Place API
 
   Scenario Outline: Verify if place is being successfully added using AddPlaceAPI
     Given Add place payload "<name>" "<language>" "<address>"
-    When USer calls "AddPlaceAPI" with Post http request
+    When USer calls "AddPlaceAPI" with "POST" http request
     Then The API call got success eith status code 200
     Then "status" is response body is "OK"
     Then "scope" is response body is "APP"
