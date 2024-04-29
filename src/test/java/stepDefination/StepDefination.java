@@ -6,8 +6,6 @@ import static org.junit.Assert.assertEquals; // import static explicitly, wont s
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.restassured.RestAssured;
-import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
@@ -15,8 +13,9 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 import resources.TestDataBuild;
+import resources.Utils;
 
-public class StepDefination {
+public class StepDefination extends Utils {
 	RequestSpecification res;
 	ResponseSpecification resSpec;
 	Response response;
@@ -24,14 +23,10 @@ public class StepDefination {
 
 	@Given("Add place payload")
 	public void add_place_payload() {
-		RestAssured.baseURI = "https://rahulshettyacademy.com";
-
-		RequestSpecification req = new RequestSpecBuilder().setBaseUri("https://rahulshettyacademy.com")
-				.addQueryParam("key", "qaclick123").setContentType(ContentType.JSON).build();
 
 		resSpec = new ResponseSpecBuilder().expectStatusCode(200).expectContentType(ContentType.JSON).build();
 
-		res = given().spec(req).body(testDataBuild.addPayLoad());
+		res = given().spec(requestSpecifications()).body(testDataBuild.addPayLoad());
 
 	}
 
