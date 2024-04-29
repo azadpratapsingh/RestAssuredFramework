@@ -2,13 +2,16 @@
 Feature: Validating Place API
 
 
-  Scenario: Verify if place is being successfully added using AddPlaceAPI
-    Given Add place payload
+  Scenario Outline: Verify if place is being successfully added using AddPlaceAPI
+    Given Add place payload "<name>" "<language>" "<address>"
     When USer calls "AddPlaceAPI" with Post http request
     Then The API call got success eith status code 200
     Then "status" is response body is "OK"
     Then "scope" is response body is "APP"
     
+   Example:
+   	| name    | language | address            |
+   	| AAhouse | English  | World Class Center |
     
     #
     #When USer calls DeleteAPI with Post http request

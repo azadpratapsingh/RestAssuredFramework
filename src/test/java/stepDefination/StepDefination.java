@@ -26,10 +26,13 @@ public class StepDefination extends Utils {
 	@Given("Add place payload")
 	public void add_place_payload() throws IOException {
 
+	}
+
+	@Given("Add place payload {string} {string} {string}")
+	public void add_place_payload(String name, String language, String address) throws IOException {
 		resSpec = new ResponseSpecBuilder().expectStatusCode(200).expectContentType(ContentType.JSON).build();
 
-		res = given().spec(requestSpecifications()).body(testDataBuild.addPayLoad());
-
+		res = given().spec(requestSpecifications()).body(testDataBuild.addPayLoad(name, language, address));
 	}
 
 	@When("USer calls {string} with Post http request")
