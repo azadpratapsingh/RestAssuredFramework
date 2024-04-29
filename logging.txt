@@ -12,11 +12,11 @@ Multiparts:		<none>
 Body:
 {
     "accuracy": 50,
-    "name": "<name>",
+    "name": "AAhouse",
     "phone_number": "4564554",
-    "address": "<address>",
+    "address": "World Class Center",
     "website": "http://google.com",
-    "language": "<language>",
+    "language": "English",
     "location": {
         "lat": -38.383494,
         "lng": 33.427362
@@ -27,7 +27,7 @@ Body:
     ]
 }
 HTTP/1.1 200 OK
-Date: Mon, 29 Apr 2024 13:50:32 GMT
+Date: Mon, 29 Apr 2024 14:03:52 GMT
 Server: Apache/2.4.52 (Ubuntu)
 Access-Control-Allow-Origin: *
 Access-Control-Allow-Methods: POST
@@ -40,8 +40,55 @@ Content-Type: application/json;charset=UTF-8
 
 {
     "status": "OK",
-    "place_id": "2482f87e13199d010f9b7412afd13ae9",
+    "place_id": "22865fc168d94e49f79157c0b1db9c5c",
     "scope": "APP",
-    "reference": "60d640442c9a45bb81d3a58ef9928cec60d640442c9a45bb81d3a58ef9928cec",
-    "id": "60d640442c9a45bb81d3a58ef9928cec"
+    "reference": "049134672a9a6c32af7d2ad30e86312e049134672a9a6c32af7d2ad30e86312e",
+    "id": "049134672a9a6c32af7d2ad30e86312e"
+}
+Request method:	POST
+Request URI:	https://rahulshettyacademy.com/maps/api/place/add/json?key=qaclick123
+Proxy:			<none>
+Request params:	<none>
+Query params:	key=qaclick123
+Form params:	<none>
+Path params:	<none>
+Headers:		Accept=*/*
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:
+{
+    "accuracy": 50,
+    "name": "BBhouse",
+    "phone_number": "4564554",
+    "address": "Mirzapur",
+    "website": "http://google.com",
+    "language": "Spanish",
+    "location": {
+        "lat": -38.383494,
+        "lng": 33.427362
+    },
+    "types": [
+        "shoe park",
+        "shop"
+    ]
+}
+HTTP/1.1 200 OK
+Date: Mon, 29 Apr 2024 14:03:53 GMT
+Server: Apache/2.4.52 (Ubuntu)
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: POST
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With
+Content-Length: 194
+Keep-Alive: timeout=5, max=100
+Connection: Keep-Alive
+Content-Type: application/json;charset=UTF-8
+
+{
+    "status": "OK",
+    "place_id": "4330bb5e89c2d2e3830393862fd81318",
+    "scope": "APP",
+    "reference": "4dba0d44a1b57426bed96cede7dc357d4dba0d44a1b57426bed96cede7dc357d",
+    "id": "4dba0d44a1b57426bed96cede7dc357d"
 }

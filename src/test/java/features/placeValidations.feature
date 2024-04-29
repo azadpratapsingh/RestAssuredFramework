@@ -9,9 +9,10 @@ Feature: Validating Place API
     Then "status" is response body is "OK"
     Then "scope" is response body is "APP"
     
-   Example:
+	Examples:
    	| name    | language | address            |
    	| AAhouse | English  | World Class Center |
+   	| BBhouse | Spanish  | Mirzapur 					|
     
     #
     #When USer calls DeleteAPI with Post http request
