@@ -15,7 +15,7 @@ Feature: Validating Place API
    	| AAhouse | English  | World Class Center |
    	| BBhouse | Spanish  | Mirzapur 					|
    
-@deletePlace   	
+@DeletePlace   	
   Scenario: Verify if delete place functionality is working
   		Given DeletePlace Payload
   		When USer calls "DeletePlaceAPI" with "POST" http request
