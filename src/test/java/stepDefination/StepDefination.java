@@ -19,21 +19,19 @@ import resources.TestDataBuild;
 import resources.Utils;
 
 public class StepDefination extends Utils {
-	RequestSpecification res;
+	RequestSpecification req;
 	ResponseSpecification resSpec;
 	Response response;
 	TestDataBuild testDataBuild = new TestDataBuild();
-
-	@Given("Add place payload")
-	public void add_place_payload() throws IOException {
-
-	}
+	String place_Id;
+	JsonPath jsonPath;
+	static String place_id;
 
 	@Given("Add place payload {string} {string} {string}")
 	public void add_place_payload(String name, String language, String address) throws IOException {
 		resSpec = new ResponseSpecBuilder().expectStatusCode(200).expectContentType(ContentType.JSON).build();
 
-		res = given().spec(requestSpecifications()).body(testDataBuild.addPayLoad(name, language, address));
+		req = given().spec(requestSpecifications()).body(testDataBuild.addPayLoad(name, language, address));
 	}
 
 	@When("USer calls {string} with {string} http request")
@@ -42,15 +40,19 @@ public class StepDefination extends Utils {
 		APIResources resourceApi = APIResources.valueOf(resource);
 		System.out.println(resourceApi.getResource());
 
+		resSpec = new ResponseSpecBuilder().expectStatusCode(200).expectContentType(ContentType.JSON).build();
+
 		if (method.equalsIgnoreCase("POST"))
-			response = res.when().post(resourceApi.getResource()).then().spec(resSpec).extract().response();
+			response = req.when().post(resourceApi.getResource()).then().spec(resSpec).extract().response();
 		else if (method.equalsIgnoreCase("GET")) {
-			response = res.when().get(resourceApi.getResource()).then().spec(resSpec).extract().response();
+			response = req.when().get(resourceApi.getResource()).then().spec(resSpec).extract().response();
+		} else if (method.equalsIgnoreCase("DELETE")) {
+			response = req.when().delete(resourceApi.getResource()).then().spec(resSpec).extract().response();
 		}
 
 	}
 
-	@Then("The API call got success eith status code {int}")
+	@Then("The API call got success with status code {int}")
 	public void the_api_call_got_success_eith_status_code(Integer int1) {
 		assertEquals(response.statusCode(), 200); // import static explicitly, wont show by eclipse
 
@@ -58,9 +60,23 @@ public class StepDefination extends Utils {
 
 	@Then("{string} is response body is {string}")
 	public void is_response_body_is(String keyValue, String ExpectedValue) {
-		String respString = response.asString();
-		JsonPath jsonPath = new JsonPath(respString);
-		assertEquals(jsonPath.get(keyValue).toString(), ExpectedValue);
+
+		assertEquals(getJsonPath(response, keyValue), ExpectedValue);
 
 	}
+
+	@Then("Verify place_Id created maps to {string} using {string}")
+	public void verify_place_id_created_maps_to_using(String expectedName, String resource) throws IOException {
+		place_id = getJsonPath(response, "place_id");
+		req = given().spec(requestSpecifications()).queryParam("place_id", place_id);
+		u_ser_calls_with_post_http_request(resource, "GET");
+		String actualName = getJsonPath(response, "name");
+		assertEquals(actualName, expectedName);
+	}
+
+	@Given("DeletePlace Payload")
+	public void delete_place_payload() throws IOException {
+		req = given().spec(requestSpecifications()).body(testDataBuild.deletePlacePayload(place_id));
+	}
+
 }

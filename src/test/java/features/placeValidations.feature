@@ -1,18 +1,27 @@
 
 Feature: Validating Place API
 
-
+@AddPlace
   Scenario Outline: Verify if place is being successfully added using AddPlaceAPI
     Given Add place payload "<name>" "<language>" "<address>"
     When USer calls "AddPlaceAPI" with "POST" http request
-    Then The API call got success eith status code 200
+    Then The API call got success with status code 200
     Then "status" is response body is "OK"
     Then "scope" is response body is "APP"
+    Then Verify place_Id created maps to "<name>" using "GetPlaceAPI"
     
 	Examples:
    	| name    | language | address            |
    	| AAhouse | English  | World Class Center |
    	| BBhouse | Spanish  | Mirzapur 					|
+   
+@deletePlace   	
+  Scenario: Verify if delete place functionality is working
+  		Given DeletePlace Payload
+  		When USer calls "DeletePlaceAPI" with "POST" http request
+  		Then The API call got success with status code 200
+  		Then "status" is response body is "OK" 	
+   
     
     #
     #When USer calls DeleteAPI with Post http request

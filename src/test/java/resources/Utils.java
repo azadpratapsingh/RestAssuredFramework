@@ -10,10 +10,14 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.ContentType;
+import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
 public class Utils {
 	public static RequestSpecification req;
+	Response response;
+	JsonPath jsonPath;
 
 	public RequestSpecification requestSpecifications() throws IOException {
 
@@ -34,6 +38,15 @@ public class Utils {
 		properties.load(fis);
 		System.out.println(properties.getProperty(key));
 		return properties.getProperty(key);
+
+	}
+
+	public String getJsonPath(Response response, String key) {
+		String respString = response.asString();
+		jsonPath = new JsonPath(respString);
+		String string = jsonPath.get(key).toString();
+		System.out.println(string);
+		return jsonPath.get(key).toString();
 
 	}
 
